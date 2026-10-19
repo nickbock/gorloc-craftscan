@@ -1,0 +1,31 @@
+## Interface: 120105
+## Title: Gorloc CraftScan
+## Notes: Sync Auctionator lists for profession materials and crafted items.
+## Author: Gorloc
+## Version: 1.0.0
+## IconTexture: Interface\Icons\INV_Misc_Note_01
+## Category: Professions
+## Category-deDE: Berufe
+## Category-esES: Profesiones
+## Category-esMX: Profesiones
+## Category-frFR: Métiers
+## Category-itIT: Professioni
+## Category-koKR: 전문 기술
+## Category-ptBR: Profissões
+## Category-ruRU: Профессии
+## Category-zhCN: 专业
+## Category-zhTW: 專業技能
+## X-License: MIT
+## OptionalDeps: Auctionator
+## SavedVariables: GorlocCraftScanDB
+
+Util.lua
+MaterialCollector.lua
+ProfessionScanner.lua
+Runtime.lua
+ProfessionSession.lua
+AuctionatorAdapter.lua
+ContributionStore.lua
+UIModel.lua
+UI.lua
+Core.lua

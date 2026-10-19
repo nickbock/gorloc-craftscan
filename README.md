@@ -4,6 +4,8 @@ Turn your professions into Auctionator shopping lists. Gorloc CraftScan reads th
 
 Part of the Gorloc suite.
 
+![The Sync tab](assets/sync-tab.png)
+
 ## Requirements
 
 - World of Warcraft Retail (Midnight, 12.x)
@@ -35,6 +37,12 @@ The **Characters** tab (or `/gcs history`) shows which characters and profession
 ### If a scan is incomplete
 
 When the game does not return all recipe data, nothing is synced automatically. Retry **Scan & Sync**, or click **Sync available items** to add what was found. **Details** shows what was missing.
+
+## Screenshots
+
+| Characters tab | Resulting Auctionator lists |
+| --- | --- |
+| ![Characters tab with synced characters and professions](assets/characters-tab.png) | ![Gorloc shopping lists in Auctionator's Shopping tab](assets/auctionator-lists.png) |
 
 ## Good to know
 

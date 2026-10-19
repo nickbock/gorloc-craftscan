@@ -2,11 +2,11 @@
 
 This build replaces the previous UI with a compact native Blizzard window. Simulated tests cover the scan/sync flow, additive merging, history, profession sessions, dropdowns, retries, and cancellation. Actual native rendering and Auctionator persistence require in-game checks.
 
-Validation: 49 logic tests, 21 merge/history tests, 17 profession-session tests, 4 UI-model tests, the headless UI/controller scenario, and Lua 5.1 syntax checks passed. The 12-file ZIP passed its archive integrity check.
+Validation: 49 logic tests, 21 merge/history tests, 17 profession-session tests, 4 UI-model tests, the headless UI/controller scenario, and Lua 5.1 syntax checks passed.
 
 ## First test
 
-1. Extract `dist/GorlocCraftScan-1.0.0.zip` into `Interface/AddOns/`. Enable Gorloc CraftScan and Auctionator. Reload the UI when replacing an existing installation.
+1. Install the release ZIP (or copy `GorlocCraftScan/`) into `Interface/AddOns/`. Enable Gorloc CraftScan and Auctionator. Reload the UI when replacing an existing installation.
 2. With professions closed, run `/gcs`. Verify the profession dropdown includes your crafting professions and Cooking. Select one and click **Scan & Sync**. Its window should open, scan, close, and sync the fixed Auctionator destination automatically.
 3. Verify the current expansion is selected initially. Adjust the expansion dropdown and repeat; choices should survive automatic reopening. If the current expansion is unavailable, choose another explicitly. Use `/gcs debug` if metadata is unexpected.
 4. Check representative recipe ingredients and crafted outputs against the resulting Auctionator list. A known recipe contributes even when you own none of its materials. Try **All exposed recipes** and a multi-expansion selection; unavailable data should produce a partial scan.

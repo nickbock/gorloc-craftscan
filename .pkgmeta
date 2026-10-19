@@ -1,0 +1,19 @@
+package-as: GorlocCraftScan
+
+# The addon lives in a subfolder; lift it to the package root. The root LICENSE stays in the package.
+move-folders:
+  GorlocCraftScan/GorlocCraftScan: GorlocCraftScan
+
+ignore:
+  - assets
+  - docs
+  - tests
+  - README.md
+  - CHANGELOG.md
+
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown
+
+required-dependencies:
+  - auctionator

@@ -6,14 +6,9 @@ Part of the Gorloc suite.
 
 ![The Sync tab](assets/sync-tab.png)
 
-## Requirements
-
-- World of Warcraft Retail (Midnight, 12.x)
-- [Auctionator](https://www.curseforge.com/wow/addons/auctionator)
-
 ## Installation
 
-Install with the CurseForge or Wago app, or extract the ZIP into `_retail_/Interface/AddOns/` so that `Interface/AddOns/GorlocCraftScan/GorlocCraftScan.toc` exists. Enable Gorloc CraftScan and Auctionator, then restart WoW or `/reload`.
+Install with the CurseForge or Wago app. Requires World of Warcraft Retail (Midnight) and [Auctionator](https://www.curseforge.com/wow/addons/auctionator).
 
 ## Usage
 

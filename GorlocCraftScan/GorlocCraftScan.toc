@@ -2,7 +2,7 @@
 ## Title: Gorloc CraftScan
 ## Notes: Sync Auctionator lists for profession materials and crafted items.
 ## Author: Gorloc
-## Version: 1.0.0
+## Version: @project-version@
 ## IconTexture: Interface\Icons\INV_Misc_Note_01
 ## Category: Professions
 ## Category-deDE: Berufe

@@ -1,6 +1,6 @@
 local _, G = ...
 
-G.VERSION = "1.0.0"
+G.VERSION = "@project-version@" -- replaced with the git tag by the BigWigs packager
 G.TITLE = "Gorloc CraftScan"
 G.CALLER = "GorlocCraftScan"
 

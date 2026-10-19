@@ -16,13 +16,19 @@ lua5.1 tests/ui_smoke.lua
 
 ## Releasing
 
-1. Update `## Version` in `GorlocCraftScan/GorlocCraftScan.toc` and `G.VERSION` in `GorlocCraftScan/Util.lua`, and add a [CHANGELOG](../CHANGELOG.md) entry.
-2. Check `## Interface` against the current client build.
-3. Run the tests and the in-game checklist.
-4. Build the ZIP with `python3 tools/package.py`. It contains the files listed in the TOC plus `LICENSE`, under `GorlocCraftScan/`, and is written to `dist/`.
-5. Commit, tag the version (`git tag v1.0.0`), and upload the ZIP to CurseForge and Wago.
+Releases are built by the [BigWigs packager](https://github.com/BigWigsMods/packager) in GitHub Actions ([release.yml](../.github/workflows/release.yml), configured by [.pkgmeta](../.pkgmeta)). Pushing a tag runs the tests, packages `GorlocCraftScan/` plus `LICENSE`, and uploads it to CurseForge, Wago and a GitHub release. The tag is the version: the packager replaces `@project-version@` in the TOC and `Util.lua`. Tags containing `alpha` or `beta` are uploaded as alpha/beta files.
 
-Once the CurseForge and Wago projects exist, add `## X-Curse-Project-ID` and `## X-Wago-ID` to the TOC.
+1. Add a [CHANGELOG](../CHANGELOG.md) entry; the packager uploads this file as the changelog.
+2. Check `## Interface` in the TOC against the current client build.
+3. Run the tests and the in-game checklist.
+4. Commit, then push an annotated tag: `git tag -a 1.0.1 -m "1.0.1"` and `git push origin main 1.0.1`.
+
+One-time setup:
+
+- Add `## X-Curse-Project-ID` and `## X-Wago-ID` to the TOC once the projects exist. Without them the packager skips that site.
+- Add the repository secrets `CF_API_TOKEN` ([CurseForge API token](https://authors.curseforge.com/#/settings/api-tokens)) and `WAGO_API_TOKEN` ([Wago API token](https://addons.wago.io/account/apikeys)). The GitHub release uses the built-in `GITHUB_TOKEN`.
+
+For a local test install, copy `GorlocCraftScan/` into `Interface/AddOns/`; the version then shows as `@project-version@`. To build a ZIP locally without uploading, run the packager's `release.sh -d` from the repository root. It writes to `.release/` and needs `zip`.
 
 ## Scope
 

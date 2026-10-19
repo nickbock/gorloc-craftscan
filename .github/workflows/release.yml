@@ -1,0 +1,38 @@
+# Pushing a version tag (for example 1.0.1) tests the addon, then packages it and
+# uploads it to CurseForge, Wago and a GitHub release. Tags containing "alpha" or
+# "beta" are uploaded as alpha/beta files.
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: sudo apt-get update && sudo apt-get install -y lua5.1
+      - run: |
+          lua5.1 tests/run.lua
+          lua5.1 tests/multi_character.lua
+          lua5.1 tests/session.lua
+          lua5.1 tests/ui_model.lua
+          lua5.1 tests/ui_smoke.lua
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+      WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+      GH_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # full history for the changelog and previous-tag lookup
+      - uses: BigWigsMods/packager@v2

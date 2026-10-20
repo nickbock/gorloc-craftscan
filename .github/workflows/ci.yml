@@ -53,3 +53,5 @@ jobs:
         with:
           path: .release/*.zip
           archive: false
+          include-hidden-files: true # .release/ is a hidden folder
+          if-no-files-found: error

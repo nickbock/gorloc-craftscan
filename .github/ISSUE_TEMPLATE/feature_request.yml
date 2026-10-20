@@ -1,0 +1,16 @@
+name: Feature request
+description: Suggest an improvement or a new feature.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do?
+      description: Describe what you are trying to achieve and what makes it hard today.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How could CraftScan help?
+      description: Your idea for how it could work. Optional.

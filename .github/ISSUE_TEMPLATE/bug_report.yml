@@ -1,0 +1,41 @@
+name: Bug report
+description: Something in Gorloc CraftScan does not work as expected.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Profession, recipe and expansion options, shopping list mode, and what you clicked.
+      placeholder: |
+        1. /gcs, select Alchemy, Known recipes, Midnight, Combined
+        2. Click Scan & Sync
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: debug
+    attributes:
+      label: /gcs debug output
+      description: Type `/gcs debug` in game, select all text in the panel, and paste it here. It includes the addon, WoW and Auctionator versions.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: errors
+    attributes:
+      label: Lua errors
+      description: Any error messages, for example from BugSack. Leave empty if there were none.
+      render: text
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Screenshots, other addons that might be involved, or whether it happens on every character.

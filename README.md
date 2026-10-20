@@ -56,7 +56,7 @@ When the game does not return all recipe data, nothing is synced automatically. 
 
 ## Reporting problems
 
-Run `/gcs debug`, copy the text, and include it with a description of what happened.
+[Open an issue](https://github.com/nickbock/gorloc-craftscan/issues/new/choose) and include the output of `/gcs debug`.
 
 ## License
 

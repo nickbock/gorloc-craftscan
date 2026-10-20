@@ -49,7 +49,11 @@ jobs:
       - uses: BigWigsMods/packager@v2
         with:
           args: -d
-      - uses: actions/upload-artifact@v7
+      # On a branch push of an already tagged commit the packager builds nothing; the tag's release run builds it.
+      - id: tagged
+        run: echo "tag=$(git tag --points-at HEAD | head -n1)" >> "$GITHUB_OUTPUT"
+      - if: ${{ !(github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') && steps.tagged.outputs.tag != '') }}
+        uses: actions/upload-artifact@v7
         with:
           path: .release/*.zip
           archive: false

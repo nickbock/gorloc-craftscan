@@ -3,7 +3,7 @@
 ## Notes: Sync Auctionator lists for profession materials and crafted items.
 ## Author: Gorloc
 ## Version: @project-version@
-## IconTexture: Interface\Icons\INV_Misc_Note_01
+## IconTexture: Interface\AddOns\GorlocCraftScan\Media\Icon.tga
 ## Category: Professions
 ## Category-deDE: Berufe
 ## Category-esES: Profesiones

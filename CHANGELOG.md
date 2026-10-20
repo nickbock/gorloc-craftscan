@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 (2026-10-20)
+
+- Auctionator is now listed as an optional dependency, so the CurseForge app no longer installs it automatically. CraftScan still needs Auctionator to sync shopping lists.
+
 ## 1.0.0 (2026-10-20)
 
 First public release.

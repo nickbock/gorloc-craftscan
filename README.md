@@ -60,4 +60,4 @@ Run `/gcs debug`, copy the text, and include it with a description of what happe
 
 ## License
 
-[MIT](LICENSE). Developer notes are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+Copyright (C) 2026 Tevoll. Licensed under the [GNU General Public License v3.0](LICENSE). Developer notes are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).

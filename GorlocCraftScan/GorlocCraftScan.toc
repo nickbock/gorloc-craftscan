@@ -15,7 +15,7 @@
 ## Category-ruRU: Профессии
 ## Category-zhCN: 专业
 ## Category-zhTW: 專業技能
-## X-License: MIT
+## X-License: GPL-3.0
 ## OptionalDeps: Auctionator
 ## SavedVariables: GorlocCraftScanDB
 

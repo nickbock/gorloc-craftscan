@@ -14,13 +14,19 @@ lua5.1 tests/ui_model.lua
 lua5.1 tests/ui_smoke.lua
 ```
 
+Lint with [luacheck](https://github.com/lunarmodules/luacheck): `luacheck GorlocCraftScan`. [.luacheckrc](../.luacheckrc) lists the WoW API globals the addon reads; add new ones there when the code starts using them.
+
+## CI
+
+[ci.yml](../.github/workflows/ci.yml) runs on every pull request and push to `main`: a syntax check and the tests, luacheck, and a packager build without uploading. The built ZIP is attached to the run, so a pull request can be tested in game before merging. `main` requires these checks to pass before a pull request can be merged. [Dependabot](../.github/dependabot.yml) opens pull requests when the workflow actions have new versions.
+
 ## Releasing
 
-Releases are built by the [BigWigs packager](https://github.com/BigWigsMods/packager) in GitHub Actions ([release.yml](../.github/workflows/release.yml), configured by [.pkgmeta](../.pkgmeta)). Pushing a tag runs the tests, packages `GorlocCraftScan/` plus `LICENSE`, and uploads it to CurseForge, Wago and a GitHub release. The tag is the version: the packager replaces `@project-version@` in the TOC and `Util.lua`. Tags containing `alpha` or `beta` are uploaded as alpha/beta files.
+Releases are built by the [BigWigs packager](https://github.com/BigWigsMods/packager) in GitHub Actions ([release.yml](../.github/workflows/release.yml), configured by [.pkgmeta](../.pkgmeta)). Pushing a tag runs CI, packages `GorlocCraftScan/` plus `LICENSE`, and uploads it to CurseForge, Wago and a GitHub release. The tag is the version: the packager replaces `@project-version@` in the TOC and `Util.lua`. Tags containing `alpha` or `beta` are uploaded as alpha/beta files.
 
 1. Add a [CHANGELOG](../CHANGELOG.md) entry; the packager uploads this file as the changelog.
 2. Check `## Interface` in the TOC against the current client build.
-3. Run the tests and the in-game checklist.
+3. Make sure CI passes on `main`, and run the in-game checklist.
 4. Commit, then push an annotated tag: `git tag -a 1.0.1 -m "1.0.1"` and `git push origin main 1.0.1`.
 
 One-time setup:

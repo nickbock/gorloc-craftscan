@@ -16,6 +16,7 @@
 ## Category-zhCN: 专业
 ## Category-zhTW: 專業技能
 ## X-License: GPL-3.0
+## X-Curse-Project-ID: 1755552
 ## OptionalDeps: Auctionator
 ## SavedVariables: GorlocCraftScanDB
 

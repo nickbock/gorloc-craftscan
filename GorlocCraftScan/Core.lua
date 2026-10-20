@@ -144,7 +144,8 @@ function G.StartScan()
                     local note = G.session:Finish()
                     G.cleanupNote = note
                     G.viewState = result.complete and "ready" or "partial"
-                    local available, why = G.AuctionatorAdapter.Check(G.Runtime.AuctionatorAPI())
+                    -- Auctionator may have changed while the scan ran.
+                    available, why = G.AuctionatorAdapter.Check(G.Runtime.AuctionatorAPI())
                     local message
                     if trackingError then message = trackingError
                     elseif not available then message = why

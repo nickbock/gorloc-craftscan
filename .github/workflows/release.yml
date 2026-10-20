@@ -1,4 +1,4 @@
-# Pushing a version tag (for example 1.0.1) tests the addon, then packages it and
+# Pushing a version tag (for example 1.0.1) runs CI, then packages the addon and
 # uploads it to CurseForge, Wago and a GitHub release. Tags containing "alpha" or
 # "beta" are uploaded as alpha/beta files.
 name: Release
@@ -12,20 +12,11 @@ permissions:
   contents: write
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - run: sudo apt-get update && sudo apt-get install -y lua5.1
-      - run: |
-          lua5.1 tests/run.lua
-          lua5.1 tests/multi_character.lua
-          lua5.1 tests/session.lua
-          lua5.1 tests/ui_model.lua
-          lua5.1 tests/ui_smoke.lua
+  ci:
+    uses: ./.github/workflows/ci.yml
 
   release:
-    needs: test
+    needs: ci
     runs-on: ubuntu-latest
     env:
       CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}

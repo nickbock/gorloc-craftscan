@@ -1,0 +1,55 @@
+# Runs on every pull request and push to main, and before each release (release.yml calls it).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: sudo apt-get update && sudo apt-get install -y lua5.1
+      - name: Syntax check
+        run: for f in GorlocCraftScan/*.lua; do luac5.1 -p "$f"; done
+      - name: Tests
+        run: |
+          lua5.1 tests/run.lua
+          lua5.1 tests/multi_character.lua
+          lua5.1 tests/session.lua
+          lua5.1 tests/ui_model.lua
+          lua5.1 tests/ui_smoke.lua
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: lunarmodules/luacheck@v1
+        with:
+          args: GorlocCraftScan
+
+  # Builds the release ZIP without uploading it, so packaging problems show up before a tag,
+  # and attaches it to the run for testing a pull request in game.
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: BigWigsMods/packager@v2
+        with:
+          args: -d
+      - uses: actions/upload-artifact@v7
+        with:
+          path: .release/*.zip
+          archive: false

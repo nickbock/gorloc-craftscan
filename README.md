@@ -4,7 +4,7 @@ Turn your professions into Auctionator shopping lists. Gorloc CraftScan reads th
 
 Part of the Gorloc suite.
 
-![The Sync tab](assets/sync-tab.png)
+![The Sync tab](https://raw.githubusercontent.com/nickbock/gorloc-craftscan/main/assets/sync-tab.png)
 
 ## Installation
 
@@ -37,7 +37,7 @@ When the game does not return all recipe data, nothing is synced automatically. 
 
 | Characters tab | Resulting Auctionator lists |
 | --- | --- |
-| ![Characters tab with synced characters and professions](assets/characters-tab.png) | ![Gorloc shopping lists in Auctionator's Shopping tab](assets/auctionator-lists.png) |
+| ![Characters tab with synced characters and professions](https://raw.githubusercontent.com/nickbock/gorloc-craftscan/main/assets/characters-tab.png) | ![Gorloc shopping lists in Auctionator's Shopping tab](https://raw.githubusercontent.com/nickbock/gorloc-craftscan/main/assets/auctionator-lists.png) |
 
 ## Good to know
 
@@ -60,4 +60,4 @@ When the game does not return all recipe data, nothing is synced automatically. 
 
 ## License
 
-Copyright (C) 2026 Tevoll. Licensed under the [GNU General Public License v3.0](LICENSE). Developer notes are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+Copyright (C) 2026 Tevoll. Licensed under the [GNU General Public License v3.0](https://github.com/nickbock/gorloc-craftscan/blob/main/LICENSE). Developer notes are in [docs/DEVELOPMENT.md](https://github.com/nickbock/gorloc-craftscan/blob/main/docs/DEVELOPMENT.md).

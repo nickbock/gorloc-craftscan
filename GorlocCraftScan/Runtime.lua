@@ -78,13 +78,25 @@ function Runtime.SessionEnvironment()
     }
 end
 
+-- Retail (Midnight) and WoW Forever run the same modern client. Forever has reported both
+-- WOW_PROJECT_MAINLINE and its own WOW_PROJECT_CAMELOT ID during beta, so accept either by
+-- name; the "Camelot" constant may be renamed later. The API check below is the real gate.
+function Runtime.IsSupportedClient()
+    if WOW_PROJECT_ID == nil then return false end
+    if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then return true end
+    for _, name in ipairs({ "WOW_PROJECT_CAMELOT", "WOW_PROJECT_FOREVER" }) do
+        if _G[name] ~= nil and WOW_PROJECT_ID == _G[name] then return true end
+    end
+    return false
+end
+
 function Runtime.Context()
-    if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then return nil, "This local build supports Retail only." end
+    if not Runtime.IsSupportedClient() then return nil, "This build supports Retail and WoW Forever only." end
     local api = C_TradeSkillUI
     if not api or type(api.GetAllRecipeIDs) ~= "function"
         or type(api.GetRecipeSchematic) ~= "function"
         or type(api.IsRecipeInSkillLine) ~= "function" then
-        return nil, "The required Retail profession APIs are unavailable."
+        return nil, "The required profession APIs are unavailable."
     end
     if not ProfessionsFrame or not ProfessionsFrame:IsShown() then
         return nil, "Select a profession and click Scan recipes."
@@ -215,6 +227,8 @@ function Runtime.Diagnostics()
     local lines = {
         G.TITLE .. " " .. G.VERSION,
         string.format("WoW %s; build %s; interface %s", version, build, interface),
+        string.format("Project ID: %s (Mainline %s, Camelot %s)", tostring(WOW_PROJECT_ID),
+            tostring(WOW_PROJECT_MAINLINE), tostring(_G.WOW_PROJECT_CAMELOT)),
         "Auctionator: " .. tostring(C_AddOns.GetAddOnMetadata("Auctionator", "Version") or "not installed"),
         "CreateShoppingList: " .. type(api.CreateShoppingList),
         "ConvertToSearchString: " .. type(api.ConvertToSearchString),

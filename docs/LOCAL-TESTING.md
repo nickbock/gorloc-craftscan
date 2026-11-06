@@ -62,6 +62,17 @@ Validation: 49 logic tests, 21 merge/history tests, 17 profession-session tests,
 - Bind-on-pickup, quest, and account-binding categories are excluded using item metadata. Other restrictions may not be detectable; an included search does not guarantee an item can be bought.
 - API calls that return missing/invalid data are retried or shown as partial. A successful sync means the public API returned the expected list contents; only an in-game reload test proves persistence.
 
+## WoW Forever
+
+Forever runs the modern client with its own interface number (16001), so the addon only needs checking for data differences. Use Auctionator 341 or later.
+
+1. Install `GorlocCraftScan/` into the Forever client's `Interface\AddOns\` folder (on the beta this was `_classic_beta_`). It must load without "out of date" in the AddOns list.
+2. Run `/gcs debug`. Record the interface, `Project ID` line and `Client expansion`. The four Auctionator lines and `OpenTradeSkill` must all read `function`.
+3. Open `/gcs` and verify the profession dropdown. Check that the current expansion is preselected; if `Client expansion` or the profession's expansion names differ from Retail, the selection may start empty. Report the debug output if so.
+4. Run the First test steps 2 to 7. Pay attention to reagent quality: Forever may expose no quality tiers, which should still produce one unrestricted search per item.
+5. Verify both a new list and merging into an existing `Gorloc - <Profession>` list, since the guarded existence check is the only private Auctionator call.
+6. Check that saved history and lists persist after `/reload` and a relog.
+
 ## Before go-live
 
 Complete in-game tests, confirm the downstream price source, verify material/search-term deduplication and all-quality search results, and verify the supported client/Auctionator versions. Validate crafted-output coverage for Alchemy and Enchanting, including item links, variants, and non-item recipes. A direct AH scanner remains a separate scope decision.

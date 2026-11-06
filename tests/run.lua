@@ -551,7 +551,7 @@ test("runtime collects output quality IDs and falls back to item data or links",
     Auctionator = nil
 end)
 
-test("Retail runtime uses stable skill IDs for membership and localized current label only for default", function()
+test("Retail and Forever runtime uses stable skill IDs for membership and localized current label only for default", function()
     WOW_PROJECT_ID, WOW_PROJECT_MAINLINE, LE_EXPANSION_LEVEL_CURRENT = 1, 1, 11
     EXPANSION_NAME11 = "Current"
     ProfessionsFrame = { IsShown = function() return true end }
@@ -573,9 +573,25 @@ test("Retail runtime uses stable skill IDs for membership and localized current 
     local blocked, reason = G.Runtime.Context()
     equal(blocked, nil); contains(reason, "linked")
     C_TradeSkillUI.IsTradeSkillLinked = nil
+    -- WoW Forever: its own project ID, or Mainline on early beta builds.
+    WOW_PROJECT_CAMELOT, WOW_PROJECT_ID = 18, 18
+    equal(G.Runtime.Context().baseID, 171)
+    WOW_PROJECT_ID = 1
+    equal(G.Runtime.Context().baseID, 171)
+    -- Forever is told apart by its interface number and exposes one unnamed skill line, which is current.
+    GetBuildInfo = function() return "1.15.8", "1", "", 16001 end
+    equal(G.Runtime.IsForever(), true)
+    C_TradeSkillUI.GetChildProfessionInfos = function() return { { professionID = 300, expansionName = "", professionName = "Alchemy" } } end
+    c = G.Runtime.Context()
+    equal(c.expansions[1].name, "Alchemy"); equal(G.DefaultSelection(c)[300], true)
+    GetBuildInfo = function() return "12.1.5", "1", "", 120105 end
+    equal(G.Runtime.IsForever(), false)
+    GetBuildInfo = nil
+    -- Classic Era and other flavors stay blocked.
     WOW_PROJECT_ID = 2
     blocked, reason = G.Runtime.Context()
-    equal(blocked, nil); contains(reason, "Retail")
+    equal(blocked, nil); contains(reason, "Retail and WoW Forever")
+    WOW_PROJECT_CAMELOT = nil
 end)
 
 test("profession detection handles sparse slots, Cooking and gathering exclusions", function()

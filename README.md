@@ -8,7 +8,7 @@ Part of the Gorloc suite.
 
 ## Installation
 
-Install with the CurseForge or Wago app. Requires World of Warcraft Retail (Midnight) and [Auctionator](https://www.curseforge.com/wow/addons/auctionator).
+Install with the CurseForge or Wago app. Requires World of Warcraft Retail (Midnight) or WoW Forever, and [Auctionator](https://www.curseforge.com/wow/addons/auctionator).
 
 ## Usage
 

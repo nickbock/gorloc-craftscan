@@ -93,7 +93,7 @@ function G.ReadProfession()
     G.Invalidate("Refreshing professions...")
     G.RefreshProfessions(true)
     if G.selectedProfession then
-        status(G.context and "Choose expansions and scan recipes."
+        status(G.context and (G.Runtime.IsForever() and "Ready to scan and sync." or "Choose expansions and scan recipes.")
             or "Choose a profession and scan. Its window will open and close automatically.")
     end
 end

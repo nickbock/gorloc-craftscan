@@ -1,6 +1,6 @@
 # Development
 
-Add-on folder and identifier: `GorlocCraftScan`. Targets WoW Retail 12.1.5 (TOC interface `120105`).
+Add-on folder and identifier: `GorlocCraftScan`. Targets WoW Retail 12.1.5 (TOC interface `120105`) and WoW Forever (TOC interface `16001`). Both run the modern client, so one TOC lists both interfaces. `Runtime.IsSupportedClient` accepts `WOW_PROJECT_MAINLINE` and Forever's `WOW_PROJECT_CAMELOT`, looked up by name because Blizzard may rename it. `Runtime.IsForever` tells Forever apart by its interface number below 100000; the UI then hides the Recipes and Expansions rows, because Forever exposes one skill line per profession and no unlearned recipes. Auctionator 341 and later supports Forever; every Auctionator API CraftScan uses is in its shared code.
 
 ## Tests
 

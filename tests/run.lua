@@ -578,6 +578,15 @@ test("Retail and Forever runtime uses stable skill IDs for membership and locali
     equal(G.Runtime.Context().baseID, 171)
     WOW_PROJECT_ID = 1
     equal(G.Runtime.Context().baseID, 171)
+    -- Forever is told apart by its interface number and exposes one unnamed skill line, which is current.
+    GetBuildInfo = function() return "1.15.8", "1", "", 16001 end
+    equal(G.Runtime.IsForever(), true)
+    C_TradeSkillUI.GetChildProfessionInfos = function() return { { professionID = 300, expansionName = "", professionName = "Alchemy" } } end
+    c = G.Runtime.Context()
+    equal(c.expansions[1].name, "Alchemy"); equal(G.DefaultSelection(c)[300], true)
+    GetBuildInfo = function() return "12.1.5", "1", "", 120105 end
+    equal(G.Runtime.IsForever(), false)
+    GetBuildInfo = nil
     -- Classic Era and other flavors stay blocked.
     WOW_PROJECT_ID = 2
     blocked, reason = G.Runtime.Context()

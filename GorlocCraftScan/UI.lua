@@ -130,6 +130,9 @@ function UI:Create()
     PanelTemplates_SetNumTabs(frame, 2)
     self.syncPanel = CreateFrame("Frame", nil, frame); place(self.syncPanel, 0, 34, 540, 436)
     local panel = self.syncPanel
+    -- Forever has no recipe scope or expansion choice; those two rows are hidden and the rest moves up.
+    local forever = G.Runtime.IsForever()
+    local shift = forever and 88 or 0
     label(panel, "Profession", 24, 10, 126, 22, "GameFontNormal")
     self.profession = dropdown(panel, 2, "Select a profession", function(_, root)
         for _, profession in ipairs(G.professions) do
@@ -137,7 +140,7 @@ function UI:Create()
                 function(id) if not G.IsBusy() then G.SelectProfession(id) end end, profession.id)
         end
     end)
-    label(panel, "Recipes", 24, 54, 126, 22, "GameFontNormal")
+    local recipeLabel = label(panel, "Recipes", 24, 54, 126, 22, "GameFontNormal")
     self.recipeScope = dropdown(panel, 46, "Known recipes", function(_, root)
         for _, option in ipairs({ { false, "Known recipes" }, { true, "All exposed recipes" } }) do
             root:CreateRadio(option[2], function(all) return G.includeUnlearned == all end, function(all)
@@ -146,7 +149,7 @@ function UI:Create()
             end, option[1])
         end
     end)
-    label(panel, "Expansions", 24, 98, 126, 22, "GameFontNormal")
+    local expansionLabel = label(panel, "Expansions", 24, 98, 126, 22, "GameFontNormal")
     self.expansions = dropdown(panel, 90, "Current expansion", function(_, root)
         if not G.context then root:CreateTitle("First sync uses the current expansion."); return end
         root:CreateButton("Current expansion", function() if not G.IsBusy() then G.SelectExpansions("current") end end)
@@ -168,15 +171,18 @@ function UI:Create()
         if count == 1 then return G.ScopeLabel(G.context, G.selection) end
         return count .. " expansions selected"
     end)
-    self.hint = label(panel, "", 24, 128, 470, 38, "GameFontHighlightSmall")
-    label(panel, "Shopping lists", 24, 182, 130, 22, "GameFontNormal")
-    self.listMode = dropdown(panel, 174, "Combined", function(_, root)
+    if forever then
+        for _, widget in ipairs({ recipeLabel, self.recipeScope, expansionLabel, self.expansions }) do widget:Hide() end
+    end
+    self.hint = label(panel, "", 24, forever and 40 or 128, 470, 38, "GameFontHighlightSmall")
+    label(panel, "Shopping lists", 24, 182 - shift, 130, 22, "GameFontNormal")
+    self.listMode = dropdown(panel, 174 - shift, "Combined", function(_, root)
         root:CreateRadio("Combined", function() return G.listMode == "combined" end, function() G.SetListMode("combined") end)
         root:CreateRadio("Separate materials and items", function() return G.listMode == "split" end, function() G.SetListMode("split") end)
     end)
-    self.destinations = label(panel, "", 24, 214, 470, 40)
-    label(panel, "Adds missing searches and keeps existing entries.\nAll qualities are included.", 24, 264, 470, 36, "GameFontHighlightSmall")
-    self.status = label(panel, "", 24, 310, 470, 70)
+    self.destinations = label(panel, "", 24, 214 - shift, 470, 40)
+    label(panel, "Adds missing searches and keeps existing entries.\nAll qualities are included.", 24, 264 - shift, 470, 36, "GameFontHighlightSmall")
+    self.status = label(panel, "", 24, 310 - shift, 470, 70)
     self.details = button(panel, "Details", 24, 382, 88, function() self:ShowProblems() end)
     self.partial = button(panel, "Sync available items", 24, 410, 196, function() G.ConfirmPartialSync() end)
     self.action = button(panel, "Scan & Sync", 274, 410, 220, function() G.PrimaryAction() end)
@@ -244,7 +250,8 @@ function UI:Refresh()
     for _, widget in ipairs({ self.profession, self.recipeScope, self.expansions, self.listMode }) do
         widget:SetEnabled(not busy); widget:GenerateMenu()
     end
-    self.hint:SetText(not G.context and "First sync uses the current expansion. More expansion choices appear after that scan."
+    self.hint:SetText(G.Runtime.IsForever() and "Only recipes known by this character are included."
+        or not G.context and "First sync uses the current expansion. More expansion choices appear after that scan."
         or (G.includeUnlearned and "Includes unlearned recipes exposed by WoW in the selected expansions." or "Only recipes known by this character are included."))
     local name
     for _, profession in ipairs(G.professions) do if profession.id == G.selectedProfession then name = profession.name end end

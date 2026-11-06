@@ -68,7 +68,7 @@ Forever runs the modern client with its own interface number (16001), so the add
 
 1. Install `GorlocCraftScan/` into the Forever client's `Interface\AddOns\` folder (on the beta this was `_classic_beta_`). It must load without "out of date" in the AddOns list.
 2. Run `/gcs debug`. Record the interface, `Project ID` line and `Client expansion`. The four Auctionator lines and `OpenTradeSkill` must all read `function`.
-3. Open `/gcs` and verify the profession dropdown. Check that the current expansion is preselected; if `Client expansion` or the profession's expansion names differ from Retail, the selection may start empty. Report the debug output if so.
+3. Open `/gcs` and verify the profession dropdown. Forever has one skill line per profession and no unlearned recipes, so the Recipes and Expansions rows are hidden and only known recipes are scanned.
 4. Run the First test steps 2 to 7. Pay attention to reagent quality: Forever may expose no quality tiers, which should still produce one unrestricted search per item.
 5. Verify both a new list and merging into an existing `Gorloc - <Profession>` list, since the guarded existence check is the only private Auctionator call.
 6. Check that saved history and lists persist after `/reload` and a relog.

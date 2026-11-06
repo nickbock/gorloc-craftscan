@@ -1,8 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 (2026-11-06)
 
-- WoW Forever support: CraftScan now loads and scans on the Forever client (interface 16001). Requires Auctionator 341 or later.
+- WoW Forever support: CraftScan now loads and scans on the Forever client (interface 16001). Requires Auctionator 341 or later. Forever exposes no expansion skill lines or unlearned recipes, so the Recipes and Expansions choices are hidden there.
 
 ## 1.0.1 (2026-10-20)
 

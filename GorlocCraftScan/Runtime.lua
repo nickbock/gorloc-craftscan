@@ -90,6 +90,13 @@ function Runtime.IsSupportedClient()
     return false
 end
 
+-- Forever reports a pre-Cataclysm interface number (16001) and, unlike Retail, exposes one
+-- skill line per profession and no unlearned recipes, so the UI hides those choices.
+function Runtime.IsForever()
+    local interface = type(GetBuildInfo) == "function" and select(4, GetBuildInfo())
+    return Runtime.IsSupportedClient() and type(interface) == "number" and interface < 100000
+end
+
 function Runtime.Context()
     if not Runtime.IsSupportedClient() then return nil, "This build supports Retail and WoW Forever only." end
     local api = C_TradeSkillUI
@@ -124,6 +131,8 @@ function Runtime.Context()
         end
     end
     if #expansions == 0 then return nil, "No expansion skill lines were exposed for this profession." end
+    -- A single skill line (WoW Forever) has no expansion name to match, but it is the current one.
+    if #expansions == 1 then expansions[1].isCurrent = true end
     return {
         baseID = base.professionID, childID = child and child.professionID,
         sourceCounter = base.sourceCounter, name = base.professionName or "Profession",
